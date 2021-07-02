@@ -20,7 +20,7 @@ func main() {
 	slice[0] = 1
 	fmt.Println(slice)
 	//slices can contain any type
-
+	fmt.Println("RANGE LOOP")
 	//RANGE LOOP
 	for a, b := range slice {
 		fmt.Println(a, b)
@@ -73,7 +73,6 @@ func main() {
 	hypot := func(x, y float64) float64 {
 		return math.Sqrt(x*x + y*y)
 	}
-	
 
 	fmt.Println(hypot(5, 12))
 
@@ -92,14 +91,16 @@ func main() {
 	//that they keep track of or are "bound to" outside when they
 	//are used. the adder function returns a closure.
 
-	//EXERCISE
+	//CLOSURE EXERCISE
 	f := fibonacci()
 	for i := 0; i < 10; i++ {
 		fmt.Println(f())
 	}
 
+	//METHODS
+	usePersonMethods()
 	//method has special receiver argument
-	//method = function with receiver argument
+	//method is a function with a receiver argument
 
 	//value methods take only the value with the specific type, pointer
 	//methods take the value or a pointer
@@ -140,4 +141,52 @@ func fibonacci() func() int {
 		y = sum
 		return sum
 	}
+
+}
+
+type Vertex struct {
+	X, Y float64
+}
+
+//method Abs() receivers a Vertex. So a Vertex can call Abs()
+func (v Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+//So I can create a struct
+type Person struct {
+	name        string
+	theirHabits []Habit
+}
+
+func (p Person) details() {
+	fmt.Print("Hi my name is", p.name, "and I like to ")
+
+	for _, e := range p.theirHabits {
+		if !e.isEmpty() {
+			fmt.Printf("%v,", e)
+		}
+	}
+}
+func (h Habit) isEmpty() bool {
+	if h.name == "" {
+		return true
+	}
+	return false
+}
+
+type Habit struct {
+	name string
+}
+
+func usePersonMethods() {
+	PersonAHabits := make([]Habit, 10)
+	habit1 := "Working"
+
+	aHabit := Habit{habit1}
+
+	PersonAHabits[0] = aHabit
+	PersonA := Person{"Bob", PersonAHabits}
+	PersonA.details()
+
 }
