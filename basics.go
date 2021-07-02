@@ -66,13 +66,32 @@ func main() {
 	var m map[string]int
 	m = make(map[string]int)
 	m["a"] = 4
-
+	//--FUNCTIONS AS VALUES. More types 24/27
 	//functions are values also and you can pass functions to other functions
 
+	//hypot is a function that takes in two float64 variables and returns the square root of x^2 and y^2
 	hypot := func(x, y float64) float64 {
 		return math.Sqrt(x*x + y*y)
 	}
 
+	fmt.Println(hypot(5, 12))
+
+	//compute takes in a function
+	//varFLoat := compute(hypot(6,2))
+	//^this doesnt work because the compute func gets passed a func variable. If we were to
+	//pass it the function "hypot" with the values i.e hypot(6,2) we would essentially be passing
+	//a float64.
+	//Since we pass it the empty hypot fcn it is of func type and waits to jump into hypot until it has values
+	//given to it
+	varFloat := compute(hypot)
+	fmt.Println(varFloat)
+
+	//CLOSURES
+	//closures are function values that access variables outside of the body of their function
+	//that they keep track of or are "bound to" outside when they
+	//are used. the adder function returns a closure.
+
+	//EXERCISE
 	f := fibonacci()
 	for i := 0; i < 10; i++ {
 		fmt.Println(f())
@@ -87,6 +106,20 @@ func main() {
 	//always use a pointer receiver
 
 	//interfaces have method signatures. objects that use the method implement the interface
+}
+
+//this function gets passed a function variable
+func compute(fn func(float64, float64) float64) float64 {
+
+	return fn(3, 4)
+}
+
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
 }
 
 func fibonacci() func() int {
@@ -106,9 +139,4 @@ func fibonacci() func() int {
 		y = sum
 		return sum
 	}
-}
-
-func compute(fn func(float64, float64) float64) float64 {
-
-	return fn(3, 4)
 }
