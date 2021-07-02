@@ -72,6 +72,7 @@ func main() {
 	hypot := func(x, y float64) float64 {
 		return math.Sqrt(x*x + y*y)
 	}
+	
 
 	f := fibonacci()
 	for i := 0; i < 10; i++ {
