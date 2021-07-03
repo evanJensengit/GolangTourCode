@@ -45,7 +45,7 @@ func (p *physicalObject) changeLocation(loc string) bool {
 
 }
 
-func (p physicalObject) describe() {
+func (p *physicalObject) describe() {
 	fmt.Printf("Name: %s \n  Current state: %s, \n  Current location: %s \n\n", p.name, p.state, p.location)
 }
 

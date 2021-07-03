@@ -159,14 +159,28 @@ func main() {
 	PersonAHabits[0] = aHabit
 	PersonA := Person{"Bob", PersonAHabits}
 	PersonA.details()
-	var i3 I = PersonA
+	var i3 I = &PersonA
 	i3.details()
+	i4 := make([]I, 2)
+	i4[0] = &PersonA
+	i4[1] = &Robot{name: "Joe",
+		ID:   234,
+		mark: 12,
+	}
+	fmt.Println("------PRINTING THE INTERFACE-------")
+	for _, e := range i4 {
+		e.details()
+	}
+
 }
 
 //what is the difference between declaring a type and declaring a struct?
 type F float64
 
 //What does an interface do?
+//interfaces hold any values that implement the methods that are listed in the interface
+//interface values have underlying types that they represent
+// interface I represents any object that utilizes the details() method call
 type I interface {
 	details()
 }
@@ -218,6 +232,17 @@ func fibonacci() func() int {
 
 }
 
+type Robot struct {
+	ID   int
+	name string
+	mark int
+}
+
+func (r *Robot) details() {
+	fmt.Print("Hi my name is ", r.name, ", My ID number is ", r.ID, ".\n")
+	fmt.Println("I am a mark", r.mark, "robot\n")
+}
+
 type Vertex struct {
 	X, Y float64
 }
@@ -233,14 +258,15 @@ type Person struct {
 	theirHabits []Habit
 }
 
-func (p Person) details() {
-	fmt.Print("Hi my name is", p.name, "and I like to ")
+func (p *Person) details() {
+	fmt.Print("Hi I am a human my name is ", p.name, " and I like to ")
 
 	for _, e := range p.theirHabits {
 		if !e.isEmpty() {
-			fmt.Printf("%v,", e)
+			fmt.Print(e.name)
 		}
 	}
+	fmt.Println("\n")
 }
 func (h Habit) isEmpty() bool {
 	if h.name == "" {
