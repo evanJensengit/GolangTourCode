@@ -46,6 +46,33 @@ func main() {
 		fmt.Println(i, " Balls")
 		i++
 	}
+
+	//SWITCH STATEMENT
+	//can also use strings
+	x := 4
+
+	switch x {
+	case 1:
+		print("1")
+	case 4:
+		print("4") //prints 4
+
+	}
+
+	//with no parameter to switch statement it evaluates booleans
+	switch {
+	case x > 5:
+		print(" x > 5")
+	case x == 5:
+		print(" x == 5")
+
+	case x < 5:
+		print(" x < 5")
+		//prints x < 5
+
+	}
+	//^ this is a good way to do long if else statements
+
 	//exercise for tour of go lang SLICES
 	dx := 21
 	dy := 13
@@ -94,21 +121,68 @@ func main() {
 	//CLOSURE EXERCISE
 	f := fibonacci()
 	for i := 0; i < 10; i++ {
-		fmt.Println(f())
+		fmt.Print(f(), " ")
 	}
+	fmt.Println()
 
 	//METHODS
 	usePersonMethods()
 	//method has special receiver argument
 	//method is a function with a receiver argument
-
+	//we can only declare a receiver with types we have defined in the package,
+	//not types defined outside the package (like int)
 	//value methods take only the value with the specific type, pointer
 	//methods take the value or a pointer
 
-	//always use a pointer receiver
+	//always use a pointer receiver since then we can directly modify the variables value
+	//all methods on a given type need to have the same type of receiver (either value or pointer)
 
 	//interfaces have method signatures. objects that use the method implement the interface
+
+	//BENEFIT of using a method is that we can call it with a reference or a pointer or a value
+	//whereas with a function that takes in a value you can only call that function with the specific
+	//type of value (pointer or value - not both)
+	h1 := Habit{"Playing with cats"}
+	var i2 H = h1
+	fmt.Printf("%T", i2)
+
+	var inter1 P = F(math.Pi)
+
+	fmt.Printf("%T", inter1)
+	fmt.Println("HI_")
+
+	PersonAHabits := make([]Habit, 10)
+	habit1 := "Working"
+
+	aHabit := Habit{habit1}
+
+	PersonAHabits[0] = aHabit
+	PersonA := Person{"Bob", PersonAHabits}
+	PersonA.details()
+	var i3 I = PersonA
+	i3.details()
 }
+
+//what is the difference between declaring a type and declaring a struct?
+type F float64
+
+//What does an interface do?
+type I interface {
+	details()
+}
+
+type P interface {
+}
+
+type H interface {
+	isEmpty() bool
+}
+
+//basically if there are two different types that use the same method
+//then we can use an interface to generalize those two different types into one
+//broader type
+//we can set an interface type equal to another type and then use
+//methods defined in the interface on that data type
 
 //this function gets passed a function variable
 func compute(fn func(float64, float64) float64) float64 {
