@@ -7,8 +7,172 @@ import (
 )
 
 func main() {
-	//SLICES
+	testingStringer()
+} //END MAIN
+//reading into slices
 
+func somePointers() {
+	i := 12
+	b := &i
+	fmt.Println(b)
+	var i1 byte = 5
+	fmt.Println(i1)
+	i1 += 14
+	fmt.Println(i1)
+
+}
+
+//READERS
+//what readers do is they read in data
+func slicesAndReader() {
+	sb := make([]byte, 8)
+	read := strings.NewReader("Sup reader boi!")
+	nb, err := read.Read(sb)
+	fmt.Println("Number of bytes populated", nb)
+	fmt.Println("What the bytes represent:", sb[:nb])
+	fmt.Println("Error= ", err)
+
+}
+
+func usingRange() {
+	slice := make([]int, 10)
+	for i := range slice {
+		slice[i] = i
+	}
+	fmt.Println(slice)
+}
+
+//what is the difference between declaring a type and declaring a struct?
+type F float64
+
+//practice type for stringers section
+type arr [5]float64
+
+type arrNoString [5]float64
+
+func (a arr) String() string {
+	return fmt.Sprintf("|  %g|%g|%g|%g|%g  |", a[0], a[1], a[2], a[3], a[4])
+}
+
+//What does an interface do?
+//interfaces hold any values that implement the methods that are listed in the interface
+//interface values have underlying types that they represent
+// interface I represents any object that utilizes the details() method call
+type I interface {
+	details()
+}
+
+type P interface {
+}
+
+type H interface {
+	isEmpty() bool
+}
+
+//basically if there are two different types that use the same method
+//then we can use an interface to generalize those two different types into one
+//broader type
+//we can set an interface type equal to another type and then use
+//methods defined in the interface on that data type
+
+//this function gets passed a function variable
+func compute(fn func(float64, float64) float64) float64 {
+
+	return fn(3, 4)
+}
+
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+func fibonacci() func() int {
+	x := 0
+	y := 1
+	sum := 0
+	xturn := true
+	return func() int {
+		if xturn {
+			xturn = false
+			sum = x + sum
+			x = sum
+			return sum
+		}
+		xturn = true
+		sum = y + sum
+		y = sum
+		return sum
+	}
+
+}
+
+//STRINGERS
+//with stringers I can create a method with the receiver type and then the method
+//String() string and it will alter the print statement
+
+type Robot struct {
+	ID   int
+	name string
+	mark int
+}
+
+func (r *Robot) details() {
+	fmt.Print("Hi my name is ", r.name, ", My ID number is ", r.ID, ".\n")
+	fmt.Println("I am a mark", r.mark, "robot\n")
+}
+
+type Vertex struct {
+	X, Y float64
+}
+
+//method Abs() receivers a Vertex. So a Vertex can call Abs()
+func (v Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+//So I can create a struct
+type Person struct {
+	name        string
+	theirHabits []Habit
+}
+
+func (p *Person) details() {
+	fmt.Print("Hi I am a human my name is ", p.name, " and I like to ")
+
+	for _, e := range p.theirHabits {
+		if !e.isEmpty() {
+			fmt.Print(e.name)
+		}
+	}
+	fmt.Println("\n")
+}
+func (h Habit) isEmpty() bool {
+	if h.name == "" {
+		return true
+	}
+	return false
+}
+
+type Habit struct {
+	name string
+}
+
+func usePersonMethods() {
+	PersonAHabits := make([]Habit, 10)
+	habit1 := "Working"
+
+	aHabit := Habit{habit1}
+
+	PersonAHabits[0] = aHabit
+	PersonA := Person{"Bob", PersonAHabits}
+	PersonA.details()
+
+}
+
+func goingThroughTourGo() {
 	fmt.Println("HELLO")
 	var s []int = []int{2, 3, 4, 5}
 	b := []int{2, 3, 4, 5}
@@ -188,166 +352,4 @@ func main() {
 	slicesAndReader()
 	usingRange()
 	somePointers()
-} //END MAIN
-//reading into slices
-
-func somePointers() {
-	i := 12
-	b := &i
-	fmt.Println(b)
-	var i1 byte = 5
-	fmt.Println(i1)
-	i1 += 14
-	fmt.Println(i1)
-
-}
-
-//READERS
-//what readers do is they read in data
-func slicesAndReader() {
-	sb := make([]byte, 8)
-	read := strings.NewReader("Sup reader boi!")
-	nb, err := read.Read(sb)
-	fmt.Println("Number of bytes populated", nb)
-	fmt.Println("What the bytes represent:", sb[:nb])
-	fmt.Println("Error= ", err)
-
-}
-
-func usingRange() {
-	slice := make([]int, 10)
-	for i := range slice {
-		slice[i] = i
-	}
-	fmt.Println(slice)
-}
-
-//what is the difference between declaring a type and declaring a struct?
-type F float64
-
-//practice type for stringers section
-type arr [5]float64
-
-type arrNoString [5]float64
-
-func (a arr) String() string {
-	return fmt.Sprintf("|  %g|%g|%g|%g|%g  |", a[0], a[1], a[2], a[3], a[4])
-}
-
-//What does an interface do?
-//interfaces hold any values that implement the methods that are listed in the interface
-//interface values have underlying types that they represent
-// interface I represents any object that utilizes the details() method call
-type I interface {
-	details()
-}
-
-type P interface {
-}
-
-type H interface {
-	isEmpty() bool
-}
-
-//basically if there are two different types that use the same method
-//then we can use an interface to generalize those two different types into one
-//broader type
-//we can set an interface type equal to another type and then use
-//methods defined in the interface on that data type
-
-//this function gets passed a function variable
-func compute(fn func(float64, float64) float64) float64 {
-
-	return fn(3, 4)
-}
-
-func adder() func(int) int {
-	sum := 0
-	return func(x int) int {
-		sum += x
-		return sum
-	}
-}
-
-func fibonacci() func() int {
-	x := 0
-	y := 1
-	sum := 0
-	xturn := true
-	return func() int {
-		if xturn {
-			xturn = false
-			sum = x + sum
-			x = sum
-			return sum
-		}
-		xturn = true
-		sum = y + sum
-		y = sum
-		return sum
-	}
-
-}
-
-//STRINGERS
-//with stringers I can create a method with the receiver type and then the method
-//String() string and it will alter the print statement
-
-type Robot struct {
-	ID   int
-	name string
-	mark int
-}
-
-func (r *Robot) details() {
-	fmt.Print("Hi my name is ", r.name, ", My ID number is ", r.ID, ".\n")
-	fmt.Println("I am a mark", r.mark, "robot\n")
-}
-
-type Vertex struct {
-	X, Y float64
-}
-
-//method Abs() receivers a Vertex. So a Vertex can call Abs()
-func (v Vertex) Abs() float64 {
-	return math.Sqrt(v.X*v.X + v.Y*v.Y)
-}
-
-//So I can create a struct
-type Person struct {
-	name        string
-	theirHabits []Habit
-}
-
-func (p *Person) details() {
-	fmt.Print("Hi I am a human my name is ", p.name, " and I like to ")
-
-	for _, e := range p.theirHabits {
-		if !e.isEmpty() {
-			fmt.Print(e.name)
-		}
-	}
-	fmt.Println("\n")
-}
-func (h Habit) isEmpty() bool {
-	if h.name == "" {
-		return true
-	}
-	return false
-}
-
-type Habit struct {
-	name string
-}
-
-func usePersonMethods() {
-	PersonAHabits := make([]Habit, 10)
-	habit1 := "Working"
-
-	aHabit := Habit{habit1}
-
-	PersonAHabits[0] = aHabit
-	PersonA := Person{"Bob", PersonAHabits}
-	PersonA.details()
-
 }

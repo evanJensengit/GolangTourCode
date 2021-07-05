@@ -46,16 +46,37 @@ func (p *physicalObject) changeLocation(loc string) bool {
 }
 
 func (p *physicalObject) describe() {
+	if p == nil {
+		fmt.Println("<nil>")
+		return
+	}
+
 	fmt.Printf("Name: %s \n  Current state: %s, \n  Current location: %s \n\n", p.name, p.state, p.location)
 }
 
 type Object interface {
-	changeState()
-	changeLocation() bool
+	changeState(string)
+	changeLocation(string) bool
 	describe()
 }
 
-func main() {
+//for 12/26 methods tour.golang.org
+type tempStruct struct {
+	S string
+}
+
+type tempInter interface {
+	M()
+}
+
+func (t *tempStruct) M() {
+	if t == nil {
+		fmt.Println("<nil>")
+		return
+	}
+	fmt.Println(t.S)
+}
+func logicPlatformHardCodeExample() {
 	mot1 := physicalObject{
 		stateOptions:    []string{"Shop", "Road"},
 		locationOptions: []string{"Home", "Work", "Shop"},
@@ -64,6 +85,7 @@ func main() {
 		location:        "Home",
 		m:               make(map[string]string),
 	}
+
 	mot1.m["Home"] = "Road"
 	mot1.m["Work"] = "Road"
 	mot1.m["Shop"] = "Shop"
@@ -71,5 +93,49 @@ func main() {
 	mot1.describe()
 	mot1.changeLocation("Shop")
 	mot1.describe()
+
+	// var o Object
+	// var t1 *physicalObject
+	// o = t1
+
+	var tempI Object
+	mot2 := &mot1
+	tempI = mot2
+	fmt.Println("Describing the interface Object that has the underlying type of physicalobject")
+	fmt.Println("The variable I am using to get the underlying physical object is actually a reference to the memory address of the actual physicalObject")
+	tempI.describe()
+
+	var tempI2 tempInter
+	var tempS *tempStruct
+	tempI2 = tempS
+	tempI2.M()
+
+	var tempO Object
+	var tempP *physicalObject
+	tempO = tempP
+	tempO.describe()
+
+	//here I do a type assertion
+	tAssert, ok := tempO.(*physicalObject)
+	fmt.Println(tAssert, ok)
+	checkType(34)
+	checkType(tempO)
+
+}
+
+//type switches
+func checkType(i interface{}) {
+	switch var1 := i.(type) {
+	case *physicalObject:
+		fmt.Println(var1, " is Physical object ")
+	case float64:
+		fmt.Println(var1, " is Float object ")
+	case string:
+		fmt.Println(var1, " is string")
+	case int:
+		fmt.Println(var1, " is int")
+	default:
+		fmt.Println(var1, " dunno the type")
+	}
 
 }
