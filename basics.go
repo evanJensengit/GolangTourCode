@@ -3,10 +3,13 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 )
 
 func main() {
 	//SLICES
+
+	fmt.Println("HELLO")
 	var s []int = []int{2, 3, 4, 5}
 	b := []int{2, 3, 4, 5}
 	fmt.Println(s, cap(s))
@@ -18,6 +21,7 @@ func main() {
 	//can make a slice without doing the slice literal
 	slice := make([]int, 10)
 	slice[0] = 1
+
 	fmt.Println(slice)
 	//slices can contain any type
 	fmt.Println("RANGE LOOP")
@@ -172,10 +176,63 @@ func main() {
 		e.details()
 	}
 
+	//empty interface
+	//type assertion with interface what does that do?
+
+	//STRINGERS
+	a := arr{1, 2, 3, 4, 5}
+	fmt.Printf("%v\n", a) //I can change how this is printed with Stringers
+	b1 := arrNoString{1, 2, 3, 4, 5}
+	fmt.Printf("%v\n", b1)
+	fmt.Println("HELLO")
+	slicesAndReader()
+	usingRange()
+	somePointers()
+} //END MAIN
+//reading into slices
+
+func somePointers() {
+	i := 12
+	b := &i
+	fmt.Println(b)
+	var i1 byte = 5
+	fmt.Println(i1)
+	i1 += 14
+	fmt.Println(i1)
+
+}
+
+//READERS
+//what readers do is they read in data
+func slicesAndReader() {
+	sb := make([]byte, 8)
+	read := strings.NewReader("Sup reader boi!")
+	nb, err := read.Read(sb)
+	fmt.Println("Number of bytes populated", nb)
+	fmt.Println("What the bytes represent:", sb[:nb])
+	fmt.Println("Error= ", err)
+
+}
+
+func usingRange() {
+	slice := make([]int, 10)
+	for i := range slice {
+		slice[i] = i
+	}
+	fmt.Println(slice)
 }
 
 //what is the difference between declaring a type and declaring a struct?
 type F float64
+
+//practice type for stringers section
+type arr [5]float64
+
+type arrNoString [5]float64
+
+func (a arr) String() string {
+	return fmt.Sprintf("|  %g|%g|%g|%g|%g  |", a[0], a[1], a[2], a[3], a[4])
+}
 
 //What does an interface do?
 //interfaces hold any values that implement the methods that are listed in the interface
@@ -231,6 +288,10 @@ func fibonacci() func() int {
 	}
 
 }
+
+//STRINGERS
+//with stringers I can create a method with the receiver type and then the method
+//String() string and it will alter the print statement
 
 type Robot struct {
 	ID   int
