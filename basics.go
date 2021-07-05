@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	testingStringer()
+	//testingStringer()
+	//testingReader()
+	testingReaderOfReaderNoIO()
+	//testingReaderOfReaderWithIO()
 } //END MAIN
 //reading into slices
 
