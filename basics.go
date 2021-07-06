@@ -9,8 +9,10 @@ import (
 func main() {
 	//testingStringer()
 	//testingReader()
-	testingReaderOfReaderNoIO()
+	//testingReaderOfReaderNoIO()
 	//testingReaderOfReaderWithIO()
+	//testingImages()
+	callConcurExample()
 } //END MAIN
 //reading into slices
 

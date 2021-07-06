@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"image"
+	"image/color"
 	"io"
 	"os"
 	"strings"
@@ -55,6 +57,7 @@ func (r *rot13Reader) Read(b []byte) (int, error) {
 func testingReaderOfReaderWithIO() {
 	s := strings.NewReader("Lbh penpxrq gur pbqr!")
 	r := rot13Reader{s}
+
 	io.Copy(os.Stdout, &r) //here reader is implicitely called
 }
 
@@ -66,7 +69,39 @@ func testingReaderOfReaderNoIO() {
 	fmt.Printf("%q\n\n", b)
 	r := rot13Reader{s}
 	fmt.Printf("%q", r)
+	//to enter the Read function with *rot13Reader receiver I need to call r.Read
 	r.Read(b)
 	fmt.Printf("%q\n\n", b)
 
+}
+
+func testingImages() {
+	m := image.NewRGBA(image.Rect(0, 40, 100, 100))
+	fmt.Printf("%T", m)
+	fmt.Println(m.Bounds())
+	fmt.Println(m.At(12, 0).RGBA())
+	fmt.Println(m)
+	m.ColorModel()
+}
+
+type Image struct {
+	w, h int
+}
+
+func (im Image) ColorModel() color.Model {
+	return color.RGBAModel
+}
+
+func (im Image) Bounds() image.Rectangle {
+	return image.Rect(0, 0, im.w, im.h)
+}
+
+func (im Image) At(x, y int) color.Color {
+	return color.RGBA{uint8(x), uint8(y), 255, 255}
+
+}
+func imageWorks() {
+	m := Image{64, 128}
+	fmt.Println(m)
+	//pic.ShowImage(m)
 }
