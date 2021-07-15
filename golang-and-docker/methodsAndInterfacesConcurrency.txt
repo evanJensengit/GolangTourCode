@@ -1,0 +1,94 @@
+12/26 methods
+SO I can make a interface that points to a struct that has not been instantiated and in the method that the interface shares with the struct if I check if the receiver is nil then the error will be handled smoothly 
+Nil interfaces that don't point to an underlying value and we try to call their method on the interface variable the result is a run time error
+
+We can make an empty interface that holds values of any type 
+
+15/26 type assertion 
+
+
+STRINGERS 
+type Stringer interface {
+    String() string
+}
+Stringer is a type that can describe itself as a string. The fmt package looks for this interface to print values
+
+So Stringer in Golang is basically like a <<overload in c++. 
+When I have a Stringer method that receives an object then when I print that object, the "print" method looks to see if there is an custom Stringer written for that receiver, if there is then it uses that Stringer method to alter the print statement
+
+ERRORS 
+Error type is a built in interface like Stringer
+like the stringer typethe fmt package looks for error interface when printing values
+Functions normally return an error value and calling code should handle the errors by testing if the error return from the function is "nil" 
+nil error means that there is no error, non nil means there was an error
+
+Error() methods have receivers for the different types that may throw error?
+different structs of error for different error cases i think... 
+
+READERS 
+io package specifies the io.Reader interface 
+the io.Reader interface has a Read method. Read gets passed a byte slice and returns the number of bytes populated and an error value
+
+r := strings.NewReader("Hello reader!")
+
+
+Images 
+yo fuck images
+
+jk i just didnt fucking import "images" or "images/color" 
+what I tried to do at the beginning was:
+make the Image struct have variables of type color.Model, Rectangle and color.Color 
+
+i.e 
+type Image struct {
+  cm color.Model
+  r Rectangle
+  cc color.Color
+}
+Then I tried to get those variables filled by hardcoding values into the methods of 
+
+
+
+func (m *Image) ColorModel() color.Model {
+
+
+}
+
+func (m *image)Bounds() Rectangle {
+
+m.r = image.NewRGBA(image.Rect(0, 0, 100, 100))
+}
+
+func (m *Image) At(x, y int) color.Color {
+  
+}
+
+
+and some other incorrect shit that I dont want to get into now
+
+However, what I learned was the format of the color.Color and how it said that I could LITERALLY return the color.RGBA (uint8(x), uint8(y), 255, 255) for the At method and it would fucking work
+
+
+CONCURRENCY 
+Goroutines
+go f(x, y, z) 
+this makes it so on one thread evaluates the expression 
+
+what does it mean the evaluation happens in one goroutine and the execution happens in the new goroutine
+
+to make a channel: ch := make(chant int)
+to receive from channel: v := <-ch 
+
+Concurrent can be parallel 
+
+Is a channel similar to a pipe? 
+
+The problem that concurrency in Go solves (and concurrency in general) is to have two processes execute at the same time. This is relative depending on how many cpu cores the actual machine your are using has, but when running concurrently it balances the execution of different functions being run. Example is: 
+ 
+main() {
+
+}
+
+
+
+

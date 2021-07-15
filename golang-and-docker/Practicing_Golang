@@ -1,0 +1,158 @@
+Practicing Golang
+
+//base of what is needed
+-- 
+package main 
+
+import "fmt" 
+func main () {
+fmt.Println("hi")
+}
+
+--
+
+//while loop
+func main () {
+  i:= 0
+  for i < 1000 {
+    i++
+  }
+}
+
+---
+//infinite loop
+for { 
+}
+
+//for loop 
+
+var b = ""
+for i:=0; i < 10; i++ {
+
+}
+
+//Sprint makes the thing a string
+
+IF STATEMENTS
+in an if statement we can also decalare variables like in the for loop 
+if v := math.Pow(x, n); v < lim {
+		return v
+	}
+//trying to return v after this will not work
+
+//variables declared in an if also are available in the else statements 
+
+name := sam
+printf( hi %s\n", name) 
+
+println("hi ", name)
+
+
+//code for module 2, 8/14
+for i:= 0; i < 10; i++ {
+		z -= (z*z - x) / (2*z)
+		if math.Abs(prev - z) < .000000000000001 {
+			if prev > z {
+				return prev
+			}
+			return z
+		}
+		prev = z
+		fmt.Println(z)
+		
+	}
+	return z
+	
+SWITCH STATEMENT
+//can also use strings 
+x := 4
+
+switch x {
+case 1:
+	print("1")
+case 4:
+	print("4") //prints 4
+	
+}
+
+//with no parameter to switch statement it evaluates booleans
+switch {
+case x > 5:
+	print (" x > 5")
+case x == 5:
+	print (" x == 5")
+	
+case x < 5:
+	print (" x < 5")	
+//prints x < 5
+
+} 
+^ this is a good way to do long if else statements 
+
+DEFER
+//defers the statement until the function surrounding the statement returns 
+//multiple defers go on a stack 
+
+POINTERS
+//pretty much the same as C++ except the declaration is var p *int 
+
+STRUCTS 
+//a collection of fields 
+structs are basically like classes accept they dont have functions? 
+if I set a pointer to a struct 
+
+type Vertex struct {
+	X int
+	Y int
+}
+
+func main() {
+	v := Vertex{1, 2}
+	p := &v //if I set a pointer to a struct 
+	p.X = 1e9 //I can access it without having to dereference it (*p).X
+	fmt.Println(v)
+}
+
+//ARRAYS
+var arr [10] int
+arr2 := [4]int { 1, 3, 5, 7}
+
+!Difference between array and slices is that arrays need to have a fixed number of slots 
+and a slice does not 
+
+//SLICES 
+s[]int := arr2[0 : 3] // gets 1, 3 and 5 from arr2
+//slices are like references to arrays. modifyinga slice modifies the underlying
+//arrays  
+
+//can creat a slice of struct literals or array literals 
+s := []struct {
+		i int
+		b bool
+	}{
+		{2, true},
+		{3, false},
+		{5, true},
+		{7, true},
+		{11, false},
+		{13, true},
+	}
+	
+//default for a slice is the beginning and the end so if I do 
+var b [12]int
+b[:] gets the whole thing
+
+//slice has a length and capacity 
+length is the number of elements in slice 
+capacity is the number of elements in the array
+
+//why can we chop off the beginning but not the end
+//answer: slice is pointer to underlying array so if we move the pointer forward 
+//then we lose the bits it was pointing to previously but if we change it to only go to a 
+//specific length then those bits are still there just not in that slice length
+
+var s []int //creates a nil slice 
+
+FUNCTIONS
+we can make pointers to functions
+we can assign a function to a variable

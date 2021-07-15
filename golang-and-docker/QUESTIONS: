@@ -1,0 +1,35 @@
+QUESTIONS:
+
+func channelsYoutubeTut() {
+	out1 := make(chan string)
+	go processWithChannels("order", out1)
+	var themsg string
+
+	for i := 0; true; i++ {
+		msg, open := <-out1 //reading data out of channel ,this will block until it actually gets data to read
+		themsg += msg + " "
+
+		if !open {
+			break
+		}
+		fmt.Println(i, msg)
+	}
+	fmt.Println(themsg)
+
+	// we can also do it this way
+	for msg := range out1 {
+		msg = <-out1
+		fmt.Println(msg)
+	}
+}
+
+func processWithChannels(item string, out chan string) {
+	defer close(out)
+	defer fmt.Println("why does this not get printed")
+	for i := 0; i < 5; i++ {
+		time.Sleep(time.Second / 2)
+		out <- item //passes item to the channel
+
+	}
+	close(out) //manually close channel when done
+}	

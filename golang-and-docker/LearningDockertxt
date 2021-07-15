@@ -1,0 +1,19 @@
+Docker
+So this is able to put an image on a server (my comp is a server) and then if
+that server goes down the image can be placed on a different server. Helps because
+if something breaks we can just get rid of that image (which is transient anyways)
+and replace the image with a copy 
+
+Questions: why do I have to build the docker image again getting started 
+
+
+what is an image 
+what is a container
+
+According to Tech school Backend#2 
+https://www.youtube.com/watch?v=Q9ipbLeqmQo&list=PLLYy1kQlE6SNcsrNWp4EUZVcV7qTt7nT6&index=1&t=190s
+
+A Container is one instance of the application in the image. 
+We start containers from an image. 
+
+docker run --name postgres12 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine

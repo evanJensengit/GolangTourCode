@@ -1,0 +1,84 @@
+//slices can be made with this function 
+func make([]T, len, cap) []T
+
+slice1 := make([]int, 10) 
+
+
+HTTP NOTES
+hyper text transfer protocol 
+http is responsible for communication between clients and servers. It is the protocol of the web
+https://www.youtube.com/watch?v=SzSXHv8RKdM&t=257s 
+	"what is http" by dave xiang
+{
+1.
+http follows client server model aka request response model
+person going to eat at kitchen 
+
+clients are the browser I use they are clients to http the server for http are the web applications 
+that are sitting on the cloud owned by companies
+
+2. stateless 
+cookies and sessions track your state
+
+3. HTTP is an application layer portocol. HTTP usually using tcp protocal. TCP is how data is transmitted. TCP defines how data is transferred from on point to another. 
+SO HTTP sits above the TCP. HTTP doesnt care about how it gets the data, it carse about the data 
+
+4. Client actions 
+whenever client requests something from the server it always specifies special action. get post and delete are special actions to be performed by server
+
+//sidenote what are the network layers of software and hardware and information transmission? 
+
+5. server status codes 
+http defines server status codes. 
+
+6. Headers. http supports headers. headers are custom info sent with requests. 
+so client requests the type of data, server recognizes and responds with a response with a header as well. Headers are included on the request side and response side. There is no standard "rule book" for headers. We can send very custom headers relative to environment
+} 
+
+http crash course & exploration Traversy media 
+{ 
+any time we open a browser we are using http going through request and response cycle.
+Each request is independent. HTTP is completely stateless 
+https is where the data sent is secure security provided by SSL 
+SSL - secure socket layer 
+TSL is transport security layer
+
+http methods:
+get- get data from server
+	- every time I visit a webpage I make a get request to the server via http 
+
+post- submit data to server
+put- update data on server
+delete - deletes data from server
+
+with each request and response using http there is a header and a body.
+
+Body is typically the html page youre trying to load
+STATUS CODES 
+1xx is informational
+2xx: success 
+	200 - OK 
+	201 - okay created
+3xx: redirect 
+	301 - moved to new url 
+	304 - not modified (cached version) 
+4xx: client error
+	400 - bad request
+	401 - unauthorized
+	404 - not found 
+5xx: server error
+	500 - internal server error
+
+Postman great for testing apis that I make 
+
+
+https uses one of 2 protocols to transfer secure data 
+SSL- ssl certificate is sent from server, client acknowledges server and then they can exchange encrypted data 
+TSL - does similar thing as SSL
+
+}
+
+
+GO METHODS FROM net/http AND IO/IOUTIL 
+http.ResponseWriter value assembles the http servers response by writing to it, we send data to the http client 
+
