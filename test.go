@@ -9,7 +9,7 @@ type Page struct {
 	Body  []byte
 }
 
-func main() {
+func pages() {
 	a := Page{
 		Title: "Test Page",
 		Body:  []byte("This is a test page"),
