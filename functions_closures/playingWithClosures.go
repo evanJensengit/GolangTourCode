@@ -8,6 +8,10 @@ func test() {
 	fmt.Println("Print")
 }
 
+func takeInInt(c int) {
+	fmt.Println(c)
+}
+
 var ofTest = test
 
 func main() {
@@ -15,5 +19,7 @@ func main() {
 	x := test
 	x()
 	ofTest()
+	x1 := takeInInt
+	x1(4)
 
 }
