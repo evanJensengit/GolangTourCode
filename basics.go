@@ -12,7 +12,10 @@ func main() {
 	//testingReaderOfReaderNoIO()
 	//testingReaderOfReaderWithIO()
 	//testingImages()
-	callConcurExample()
+	//callConcurExample()
+	//channelsYoutubeTut()
+	usingChannels()
+	//mainFunc()
 } //END MAIN
 //reading into slices
 
