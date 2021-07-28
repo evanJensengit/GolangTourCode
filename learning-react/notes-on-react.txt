@@ -1,0 +1,6 @@
+
+notes from video "Learn useState In 15 Minutes - React Hooks Explained" by Web Dev Simplified
+
+
+
+notes on arrow function 
